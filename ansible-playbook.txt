@@ -1,0 +1,97 @@
+# playbook.yml
+---
+- name: Configure Magento E-commerce Server
+  hosts: magento
+  become: yes
+  vars:
+    php_version: "8.1"
+    mysql_root_password: "{{ lookup('env', 'MYSQL_ROOT_PASSWORD') }}"
+    magento_db_name: "magento"
+    magento_db_user: "magento"
+    magento_db_password: "{{ lookup('env', 'MAGENTO_DB_PASSWORD') }}"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install system dependencies
+      apt:
+        name:
+          - nginx
+          - mysql-server
+          - php{{ php_version }}
+          - php{{ php_version }}-fpm
+          - php{{ php_version }}-mysql
+          - php{{ php_version }}-curl
+          - php{{ php_version }}-gd
+          - php{{ php_version }}-mbstring
+          - php{{ php_version }}-xml
+          - php{{ php_version }}-bcmath
+          - php{{ php_version }}-intl
+          - php{{ php_version }}-zip
+          - redis-server
+        state: present
+
+    - name: Install Composer
+      shell: |
+        curl -sS https://getcomposer.org/installer | php
+        mv composer.phar /usr/local/bin/composer
+        chmod +x /usr/local/bin/composer
+
+    - name: Configure MySQL
+      mysql_user:
+        name: "{{ magento_db_user }}"
+        password: "{{ magento_db_password }}"
+        priv: "{{ magento_db_name }}.*:ALL"
+        state: present
+
+    - name: Configure Redis
+      lineinfile:
+        path: /etc/redis/redis.conf
+        regexp: "^maxmemory "
+        line: "maxmemory 512mb"
+        state: present
+
+    - name: Install Magento
+      composer:
+        command: create-project
+        arguments: --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/html/magento
+        working_dir: /tmp
+
+    - name: Configure Magento permissions
+      file:
+        path: /var/www/html/magento
+        owner: www-data
+        group: www-data
+        mode: '0755'
+        recurse: yes
+
+    - name: Configure Nginx for Magento
+      template:
+        src: templates/nginx-magento.conf.j2
+        dest: /etc/nginx/sites-available/magento
+      notify: restart nginx
+
+    - name: Enable Magento site
+      file:
+        src: /etc/nginx/sites-available/magento
+        dest: /etc/nginx/sites-enabled/magento
+        state: link
+      notify: restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: restart php-fpm
+      service:
+        name: "php{{ php_version }}-fpm"
+        state: restarted
+
+    - name: restart redis
+      service:
+        name: redis-server
+        state: restarted
