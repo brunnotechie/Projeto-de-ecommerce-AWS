@@ -1,15 +1,32 @@
 # Projeto-de-ecommerce-aws
 
-Neste projeto, inspirado em um cenário real, atuei como Engenheiro Cloud aplicando práticas DevOps para criar e implementar um MVP de e-commerce na AWS, concluído de forma totalmente automatizada em menos de 2 horas. Utilizando Infraestrutura como Código (IaC), fiz o provisionamento de toda a infraestrutura com Terraform e utilizei o Ansible para automatizar o gerenciamento de configurações, a instalação de softwares e o gerenciamento de pacotes nas instâncias EC2.
+Implementação de MVP de E-commerce na AWS com Práticas DevOps e Automação Total
 
-Para estruturar o ambiente, integrei o Magento para o e-commerce, PHP como linguagem de backend, MySQL para a gestão do banco de dados e Redis para otimizar o desempenho no armazenamento em cache. O uso de Terraform e Ansible garantiu a consistência e eficiência da infraestrutura, enquanto a escolha dos serviços AWS e das tecnologias auxiliares (Magento, PHP, MySQL e Redis) atendeu a todas as necessidades de um ambiente de e-commerce escalável e pronto para produção.
-
-Explicação do projeto:
-
-Esse MVP de e-commerce foi projetado para demonstrar a viabilidade e a eficiência de um ambiente automatizado na nuvem AWS, usando uma abordagem de DevOps. Através de Terraform, toda a infraestrutura foi configurada com scripts que garantiram a criação automatizada de redes, instâncias EC2 e bancos de dados. O Ansible, por sua vez, gerenciou a configuração das instâncias e a instalação de dependências específicas (como PHP e Redis), além de otimizar a aplicação Magento para uma operação segura e escalável. Essa automação permitiu concluir o MVP de forma rápida e com alta precisão, sendo ideal para testar rapidamente novos modelos de e-commerce ou para dar suporte a uma operação já estabelecida.
+No projeto de Implementação de MVP de E-commerce 100% automatizado na AWS, foram aplicadas práticas de DevOps para criar um ambiente funcional e escalável em menos de 2 horas. Utilizando Infraestrutura como Código (IaC), toda a infraestrutura foi provisionada com Terraform, enquanto o Ansible foi empregado para automatizar o gerenciamento de configurações, instalação de softwares e pacotes nas instâncias EC2.
 
 ![image](https://github.com/user-attachments/assets/6749173c-1605-43df-a961-2d6b3b641e82)
 
 ![image](https://github.com/user-attachments/assets/8370dd97-1130-4041-b216-fe9660df40f7)
 
-#AWS #Redis #Terraform #Ansible
+A arquitetura do ambiente incluiu:
+🔹 Magento para o e-commerce,
+🔹 PHP como linguagem de backend,
+🔹 MySQL para gestão do banco de dados,
+🔹 Redis para otimização de cache e desempenho.
+
+Explicação do Projeto
+Este MVP foi projetado para demonstrar a viabilidade de um ambiente automatizado e escalável na nuvem AWS. Com Terraform, foi possível criar toda a infraestrutura de forma automatizada, incluindo redes, instâncias EC2 e bancos de dados. Em paralelo, o Ansible gerenciou a configuração das instâncias e a instalação das dependências, garantindo que o ambiente fosse seguro, eficiente e alinhado às boas práticas de DevOps.
+
+A integração do Magento e das tecnologias auxiliares (PHP, MySQL e Redis) permitiu um desempenho robusto, enquanto o uso da automação reduziu o tempo de implementação e aumentou a consistência do processo. Esse modelo é ideal tanto para validar novos conceitos de e-commerce quanto para oferecer suporte a operações já existentes.
+
+Tecnologias e recursos utilizados:
+🔹 AWS EC2
+🔹 Terraform
+🔹 Ansible
+🔹 Magento
+🔹 Redis
+🔹 MySQL
+
+Esse projeto destacou como a automação e as práticas DevOps podem transformar a criação de ambientes complexos, oferecendo rapidez, escalabilidade e eficiência operacional.
+
+#AWS #Terraform #Ansible #Magento #Redis #DevOps
